@@ -1,6 +1,95 @@
+
+.conteneur {
+  border: 5px solid rgb(111,41,97);
+  border-radius: .5em;
+  padding: 10px;
+  align-items: stretch;
+  display: flex;
+}
 .card {
-  background: #af4343;
+  float: right;
+  width:1500px;
+  border-style: solid;
   padding: 15px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-  border-radius: 2px;
+  display: flex;
+  align-items: stretch;
+}
+
+.card-enfant {
+  float: left;
+  border-style: solid;
+  margin-left: 100px;
+  margin-right: 100px;
+  width:680px;
+  height:500px;
+  padding: 15px;
+}
+.card-parent{
+  float: right;
+  border-style: solid;
+  margin-left: 100px;
+  margin-right: 100px;
+  width:680px;
+  height:500px;
+  padding: 15px;
+}
+
+.onglet {
+  font-size: 20px;
+  width:200px;
+  border-radius: 20px;
+  padding: 15px;
+}
+
+.element_onglet_non_selectionne{
+  font-size: 20px;
+  text-align:center;
+  text-underline: none;
+
+}
+
+.element_onglet_selectionne{
+  text-align:center;
+  border-style:solid;
+  font-size: 20px;
+  text-underline: none;
+
+}
+
+.card-resume{
+  border-style: double;
+  margin-left: 500px;
+  margin-right: 100px;
+  width: 600px;
+  height: 500px;
+  padding: 15px;
+}
+.notice {
+  font-size: 16px;
+  color: #170a0a;
+  margin-top: -8px;
+  margin-bottom: 16px;
+}
+
+#form {
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.label {
+  font-size: 20px;
+}
+.button{
+    width:200px;
+    text-align: center;
+    font-size: 30px;
+    margin-top: 20px;
+    margin-left: 80px;
+    margin-bottom: 10px;
+  }
+.titre {
+  text-align: center;
+}
+
+body{
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0.15) 100%), radial-gradient(at top center, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.4) 120%);
 }
