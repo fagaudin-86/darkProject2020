@@ -1,16 +1,25 @@
-= render partial: "entete"
-//partie resume des lien de famille
-
+= render partial: "entete",
+locals: { info_parent: @info_parent, info_enfant: @info_enfant}
 .conteneur
   .onglet.element_onglet_non_selectionne
-    =link_to "Saisie Famille", principal_application_path
+    =link_to "Saisie Famille", principal_application_index_path
   .onglet.element_onglet_selectionne
-    =link_to "Resume", resume_application_path
-
+    =link_to "Resume", resume_application_index_path
+  .onglet.element_onglet_non_selectionne
+    = form_for @parent, url: resume_famille_application_path(@famille) do |d|
+      = d.label :nom do
+        Selectionnez une famille
+        .constants-list
+          = d.select :famille_id, @famille.map { |number| [number.nom, number.id]}
+        .button
+          = d.submit 'Valider',  class: "button large send gap-left"
 
 .conteneur
   .card.card-resume
-    -if @info_famille.nil?
+    -puts '********ANALYSE PARENT RESUME HAML*********'
+    -puts @info_parent.inspect
+    -if @info_parent.nil?
       %h2 Aucune famille dans la base de donnée
     -else
-      -@info_famille
+      %h2 Composition de Famille
+      - @info_parent
