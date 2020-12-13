@@ -1,22 +1,19 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  #Routage à la page principal au moment du lancement de l'application
+  #Routage à la page principal au moment du lancement de l'familles
   root :to =>'root#redirection_principal'
 
-  resources :application do
-    collection do
-      get 'principal'
-      get 'resume'
-      post 'resume_famille' => 'application#resume_famille'
-    end
-    member  do
-      post 'create_parent' => 'application#create_parent'
-      post 'create_enfant' => 'application#create_enfant'
-      post 'get_familly'  => 'application#get_familly'
-      #post 'resume_famille/:id' => 'application#resume_famille'
-    end
+  namespace :application do
+    get 'principal'
+    get 'resume'
   end
-
+  namespace :familles do
+    post 'resume_famille' => 'familles#resume_famille'
+    post 'create_parent' => 'familles#create_parent'
+    post 'create_enfant' => 'familles#create_enfant'
+    post 'familles' => 'familles#familles'
+    #post 'resume_famille/:id' => 'familles#resume_famille'
+  end
 end
 

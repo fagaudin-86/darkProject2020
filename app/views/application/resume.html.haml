@@ -1,47 +1,62 @@
-= render partial: "entete",
-locals: { info_parent: @info_parent, info_enfant: @info_enfant, parent: @parent, famille: @famille}
+= render partial: "entete"
+
+-#Récupération des donnée en base
+-value_id = params[:id]
+-if !value_id.nil?
+  -parents = Parent.where(id:params[:id])
+  -enfants = Enfant.where(parent_id: parents.first.id)
+  -nom_famille = Famille.where(id: parents.first.famille_id)
 .conteneur
   .onglet.element_onglet_non_selectionne
-    =link_to "Saisie Famille", principal_application_index_path
+    =link_to "Saisie Famille", application_principal_path
   .onglet.element_onglet_selectionne
-    =link_to "Resume", resume_application_index_path
+    =link_to "Resume", application_resume_path
   .onglet.element_onglet_non_selectionne
-    = form_for @parent, url: resume_famille_application_index_path do |d|
-      = d.label :nom do
-        Selectionnez une famille
-        = d.select :famille_id, @famille.map { |number| [number.nom, number.id]}
-        .button_selection_famille
-          = d.submit 'Valider',  class: "button large send gap-left"
-
+    = form_tag familles_resume_famille_path, action:"resume_famille", multipart: true do
+      =select_tag(:id,options_from_collection_for_select(@famille, 'id','nom'), :select => params[:id])
+      =submit_tag "VALIDER"
 .conteneur
   .card.card-resume-parent
     -puts '********ANALYSE PARENT RESUME HAML*********'
-    -puts @info_parent.inspect
+    -puts parents.inspect
     -puts '********ANALYSE PARENT RESUME HAML*********'
-    -puts @parent.inspect
-    -if @info_parent.nil?
-      %h2 Aucune famille dans la base de donnée
+    -puts value_id
+    -puts '********ANALYSE Famille RESUME HAML*********'
+    -puts @famille.inspect
+    -if parents.nil?
+      %h2 Aucune familles dans la base de donnée
     -else
       %section
-        %h2.label-resume Composition de la famille
+        %h2.label-resume Composition de la familles #{nom_famille.pluck(:nom)[0]}
         %h2 Composition des parents
         %table.table-dossier
           %tr
             %th Prenom mere
             %th Prenom pere
-            - @info_parent.each do |element_parent|
+            - parents.each do |element_parent|
               %tr
                 %td= -element_parent.prenom_pere.to_s
                 %td= -element_parent.prenom_mere.to_s
-        -if !@info_enfant.nil?
+        -if !enfants.nil?
           %br
           %h2 Composition des enfant
           %table.table-dossier
             %tr
               %th Prenom
               %th Date de naissance
-              - @info_enfant.each do |element_enfant|
+              - enfants.each do |element_enfant|
                 %tr
                   %td=-element_enfant.prenom.to_s
                   %td=-element_enfant.annee_naissance.to_s
 
+:javascript
+  function val(){
+    d = document.getElementById("test").value;
+    console.log("testt*******");
+    alert(d);
+    return d;
+  }
+
+  function get_val(){
+    return val();
+  }

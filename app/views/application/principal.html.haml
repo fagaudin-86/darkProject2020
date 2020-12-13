@@ -4,12 +4,12 @@ locals: { famille: @famille, parent: @parent, enfant: @enfant}
 
 .conteneur
   .onglet.element_onglet_selectionne
-    =link_to "Saisie Famille", principal_application_index_path
+    =link_to "Saisie Famille", application_principal_path
   .onglet.element_onglet_non_selectionne
-    =link_to "Resume", resume_application_index_path
+    =link_to "Resume", application_resume_path
   .onglet.element_onglet_non_selectionne
 
-    = form_for @parent, url: get_familly_application_path(@famille) do |d|
+    = form_for @parent, url: familles_familles_path do |d|
       = d.label :nom do
         Selectionnez une famille
         .constants-list
@@ -20,7 +20,7 @@ locals: { famille: @famille, parent: @parent, enfant: @enfant}
 .conteneur
   .card.card-parent
     = form_for @parent,
-        url: create_parent_application_path(@famille),
+        url: familles_create_parent_path(@famille),
         html: { class: 'form' } do |f|
       %h3.label Identité du père
       = f.label :prenom_pere do
@@ -43,7 +43,7 @@ locals: { famille: @famille, parent: @parent, enfant: @enfant}
 
   .card.card-enfant
     = form_for @enfant,
-        url: create_enfant_application_path(@famille),
+        url: familles_create_enfant_path(@famille),
         html: { class: 'form' } do |e|
       %h3.label Identité des enfants
       = e.label :prenom do

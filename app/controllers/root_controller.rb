@@ -5,6 +5,6 @@ class RootController < ApplicationController
   end
 
   def redirection_principal
-    redirect_to principal_application_index_path
+    redirect_to application_principal_path
   end
 end
