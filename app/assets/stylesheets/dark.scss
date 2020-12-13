@@ -56,7 +56,21 @@
 
 }
 
-.card-resume{
+.label-resume{
+  margin-left: 100px;
+}
+
+.card-resume-parent{
+  align-content: center;
+  border-style: double;
+  margin-left: 600px;
+  margin-right: 100px;
+  width: 600px;
+  height: 500px;
+  padding: 15px;
+}
+
+.card-resume-enfant{
   border-style: double;
   margin-left: 500px;
   margin-right: 100px;
@@ -84,7 +98,7 @@
   text-align: center;
   font-size: 30px;
   margin-top: 20px;
-  margin-left: 80px;
+  margin-left: 100px;
   margin-bottom: 10px;
 }
 
@@ -102,11 +116,11 @@
 
 .table-dossier {
   width: 100%;
+  margin-left:100px;
 
   tbody th {
     padding-top: 30px;
     padding-bottom: 20px;
-    border-top: 1px solid;
   }
 
   tbody th:nth-child(1) {

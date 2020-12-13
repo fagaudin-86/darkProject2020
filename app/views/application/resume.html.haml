@@ -1,5 +1,5 @@
 = render partial: "entete",
-locals: { info_parent: @info_parent, info_enfant: @info_enfant, parent: @parent}
+locals: { info_parent: @info_parent, info_enfant: @info_enfant, parent: @parent, famille: @famille}
 .conteneur
   .onglet.element_onglet_non_selectionne
     =link_to "Saisie Famille", principal_application_index_path
@@ -14,7 +14,7 @@ locals: { info_parent: @info_parent, info_enfant: @info_enfant, parent: @parent}
           = d.submit 'Valider',  class: "button large send gap-left"
 
 .conteneur
-  .card.card-resume
+  .card.card-resume-parent
     -puts '********ANALYSE PARENT RESUME HAML*********'
     -puts @info_parent.inspect
     -puts '********ANALYSE PARENT RESUME HAML*********'
@@ -22,25 +22,26 @@ locals: { info_parent: @info_parent, info_enfant: @info_enfant, parent: @parent}
     -if @info_parent.nil?
       %h2 Aucune famille dans la base de donnée
     -else
-      %br
-      %h2 Composition des Parent
-      %table.table-dossier
-        %tr
-          %th Prenom mere
-          %th Prenom pere
-        - @info_parent.each do |element_parent|
-          %tr
-            %td= -element_parent.prenom_pere.to_s
-            %td= -element_parent.prenom_mere.to_s
-      -if !@info_enfant.nil?
-        %br
-          %h2 Composition des enfant
+      %section
+        %h2.label-resume Composition de la famille
+        %h2 Composition des parents
         %table.table-dossier
           %tr
-            %th Prenom
-            %th Date de naissance
-          - @info_enfant.each do |element_enfant|
+            %th Prenom mere
+            %th Prenom pere
+            - @info_parent.each do |element_parent|
+              %tr
+                %td= -element_parent.prenom_pere.to_s
+                %td= -element_parent.prenom_mere.to_s
+        -if !@info_enfant.nil?
+          %br
+          %h2 Composition des enfant
+          %table.table-dossier
             %tr
-              %td=-element_enfant.prenom.to_s
-              %td=-element_enfant.annee_naissance.to_s
+              %th Prenom
+              %th Date de naissance
+              - @info_enfant.each do |element_enfant|
+                %tr
+                  %td=-element_enfant.prenom.to_s
+                  %td=-element_enfant.annee_naissance.to_s
 
