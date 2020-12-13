@@ -14,7 +14,7 @@ locals: { famille: @famille, parent: @parent, enfant: @enfant}
         Selectionnez une famille
         .constants-list
           = d.select :famille_id, @famille.map { |number| [number.nom, number.id]}
-        .button
+        .button_selection_famille
           = d.submit 'Valider',  class: "button large send gap-left"
 
 .conteneur

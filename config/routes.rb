@@ -8,12 +8,13 @@ Rails.application.routes.draw do
     collection do
       get 'principal'
       get 'resume'
+      post 'resume_famille' => 'application#resume_famille'
     end
     member  do
       post 'create_parent' => 'application#create_parent'
       post 'create_enfant' => 'application#create_enfant'
       post 'get_familly'  => 'application#get_familly'
-      post 'resume_famille' => 'application#resume_famille'
+      #post 'resume_famille/:id' => 'application#resume_famille'
     end
   end
 

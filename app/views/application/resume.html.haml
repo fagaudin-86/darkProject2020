@@ -1,25 +1,46 @@
 = render partial: "entete",
-locals: { info_parent: @info_parent, info_enfant: @info_enfant}
+locals: { info_parent: @info_parent, info_enfant: @info_enfant, parent: @parent}
 .conteneur
   .onglet.element_onglet_non_selectionne
     =link_to "Saisie Famille", principal_application_index_path
   .onglet.element_onglet_selectionne
     =link_to "Resume", resume_application_index_path
   .onglet.element_onglet_non_selectionne
-    = form_for @parent, url: resume_famille_application_path(@famille) do |d|
+    = form_for @parent, url: resume_famille_application_index_path do |d|
       = d.label :nom do
         Selectionnez une famille
-        .constants-list
-          = d.select :famille_id, @famille.map { |number| [number.nom, number.id]}
-        .button
+        = d.select :famille_id, @famille.map { |number| [number.nom, number.id]}
+        .button_selection_famille
           = d.submit 'Valider',  class: "button large send gap-left"
 
 .conteneur
   .card.card-resume
     -puts '********ANALYSE PARENT RESUME HAML*********'
     -puts @info_parent.inspect
+    -puts '********ANALYSE PARENT RESUME HAML*********'
+    -puts @parent.inspect
     -if @info_parent.nil?
       %h2 Aucune famille dans la base de donnée
     -else
-      %h2 Composition de Famille
-      - @info_parent
+      %br
+      %h2 Composition des Parent
+      %table.table-dossier
+        %tr
+          %th Prenom mere
+          %th Prenom pere
+        - @info_parent.each do |element_parent|
+          %tr
+            %td= -element_parent.prenom_pere.to_s
+            %td= -element_parent.prenom_mere.to_s
+      -if !@info_enfant.nil?
+        %br
+          %h2 Composition des enfant
+        %table.table-dossier
+          %tr
+            %th Prenom
+            %th Date de naissance
+          - @info_enfant.each do |element_enfant|
+            %tr
+              %td=-element_enfant.prenom.to_s
+              %td=-element_enfant.annee_naissance.to_s
+
