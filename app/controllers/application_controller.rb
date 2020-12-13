@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
 
   before_action  :principal
+  #after_action  :resume_famille
   #after_action :resume_famille
 
   def index
@@ -10,16 +11,18 @@ class ApplicationController < ActionController::Base
     @parent = Parent.new
     @enfant = Enfant.new
     @famille = list_famille
-    #@info_parent = Parent.where(famille_id: list_famille.first.id)
+    @info_parent= Parent.where(famille_id: list_famille.first.id)
+    @parent_id = @info_parent.last.id
+    @info_enfant = Enfant.where(parent_id: @parent_id) if !@parent_id.nil?
   end
+
 
   def resume_famille
     @info_parent = Parent.find_by_famille_id(params[:parent][:famille_id])
-    puts '*******ANALYSE***********'
-    puts @info_parent.inspect
     @parent_id = @info_parent.id
     @info_enfant = Enfant.where(parent_id: @parent_id) if !@parent_id.nil?
     redirect_to resume_application_index_path
+
   end
 
   def create_parent
