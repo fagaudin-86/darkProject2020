@@ -3,9 +3,11 @@
 -#Récupération des donnée en base
 -value_id = params[:id]
 -if !value_id.nil?
-  -parents = Parent.where(id:params[:id])
-  -enfants = Enfant.where(parent_id: parents.first.id)
-  -nom_famille = Famille.where(id: parents.first.famille_id)
+  -parents = Parent.where(famille_id:params[:id])
+  -enfants = Enfant.where(parent_id: parents.ids)
+  -nom_famille = Famille.where(id: params[:id])
+
+
 .conteneur
   .onglet.element_onglet_non_selectionne
     =link_to "Saisie Famille", application_principal_path
@@ -17,12 +19,6 @@
       =submit_tag "VALIDER"
 .conteneur
   .card.card-resume-parent
-    -puts '********ANALYSE PARENT RESUME HAML*********'
-    -puts parents.inspect
-    -puts '********ANALYSE PARENT RESUME HAML*********'
-    -puts value_id
-    -puts '********ANALYSE Famille RESUME HAML*********'
-    -puts @famille.inspect
     -if parents.nil?
       %h2 Aucune familles dans la base de donnée
     -else
@@ -37,6 +33,7 @@
               %tr
                 %td= -element_parent.prenom_pere.to_s
                 %td= -element_parent.prenom_mere.to_s
+
         -if !enfants.nil?
           %br
           %h2 Composition des enfant
@@ -48,15 +45,3 @@
                 %tr
                   %td=-element_enfant.prenom.to_s
                   %td=-element_enfant.annee_naissance.to_s
-
-:javascript
-  function val(){
-    d = document.getElementById("test").value;
-    console.log("testt*******");
-    alert(d);
-    return d;
-  }
-
-  function get_val(){
-    return val();
-  }
