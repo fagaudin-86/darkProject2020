@@ -5,16 +5,11 @@ class Familles::FamillesController < ActionController::Base
     @parent = Parent.new
     @enfant = Enfant.new
     @famille = list_famille
-    #@info_parent= Parent.where(famille_id: list_famille.first.id)
-    #@parent_id = @info_parent.last.id
-    #@info_enfant = Enfant.where(parent_id: @parent_id) if !@parent_id.nil?
   end
 
   def resume_famille
     puts '******ANALYSE RETOUR************'
-    puts params.inspect
-    info_parent = Parent.find_by_famille_id(params[:id])
-    redirect_to application_resume_path(:id => info_parent)
+    redirect_to application_resume_path(:id => params[:id])
   end
 
   def create_parent
